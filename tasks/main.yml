@@ -29,19 +29,18 @@
 
 # Docker-py Installation
 
-- name : "Install python pip3 for "Ubuntu"
+- name : "Install python pip3 for Ubuntu"
   package:
     name: python3-pip
     state: present
   when: ansible_distribution == "Ubuntu"
 
-- name: "Install docker-py via pip
+- name: "Install docker-py via pip"
   pip:
     name: docker-py
     state: present
   when: ansible_distribution == "Ubuntu"
 
-- meta: flush_handlers
 - name: Enable and start Docker
   service:
     name: docker

@@ -9,6 +9,7 @@
 		curl \
 		gnupg \
 		lsb-release
+	 sudo rm /usr/share/keyrings/docker-archive-keyring.gpg
 	 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
 	 sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 	 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] \
@@ -17,10 +18,10 @@
 			{# Install Docker Engine #}
 	sudo apt-get update -y
 	sudo apt-get install -y docker-ce docker-ce-cli containerd.io
-	sudo usermod -aG docker {{ ansible_user }}
+	sudo usermod -aG docker 
 	echo ‘Docker Engine installation done!’
  
-{% elif ansible_distribution == "Centos" %}
+{% elif ansible_distribution == "CentOS" %}
 		{# Uninstall old versions #}
 	sudo yum remove docker \
                   docker-client \
