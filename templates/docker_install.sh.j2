@@ -17,7 +17,8 @@
 			{# Install Docker Engine #}
 	sudo apt-get update -y
 	sudo apt-get install -y docker-ce docker-ce-cli containerd.io
-	sudo usermod -aG docker {{ ansible_user }} 
+	sudo usermod -aG docker {{ ansible_user }}
+	echo ‘Docker Engine installation done!’
  
 {% elif ansible_distribution == "Centos" %}
 		{# Uninstall old versions #}
@@ -42,5 +43,5 @@
 	sudo usermod -aG docker {{ ansible_user }}
 	echo ‘Docker Engine installation done!’
 {% else %}
-	echo 'Distribution pas prise en charge'
+	echo 'Distrution not taken over!'
 {% endif %}
