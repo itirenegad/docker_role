@@ -1,17 +1,16 @@
 Role Name
 =========
-
-A brief description of the role goes here.
+After variabilizing the hostnames of remotes hosts, we have prepared a playblook that thanks to the docker role, installs docker on our machines and according to the distribution Ubuntu or CentOS. We also install the prerequisites so that remotes can manage the life cycle of the containers that will deploy.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Ubuntu or CentOS Linux distribution.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+We use the hostname and distribution to run this playblook.
 
 Dependencies
 ------------
@@ -23,16 +22,17 @@ Example Playbook
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
-    - hosts: servers
+    - hosts: 
+        - servers
       roles:
-         - { role: username.rolename, x: 42 }
+        - { role: itirenegad.docker_role}
 
 License
 -------
 
-BSD
+license (GPL-2.0-or-later, MIT, etc)
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Learning from Sado Frazer.
