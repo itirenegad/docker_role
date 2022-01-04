@@ -1,0 +1,7 @@
+---
+# defaults file for docker-install-role
+[privilege_escalation]
+become = true
+
+[defaults]
+ask_vault_pass = true
