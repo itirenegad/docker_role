@@ -9,20 +9,3 @@ all:
           ansible_connection: local
           ansible_user: ubuntu
           hostname: AnsibleMaster
-    prod:
-      vars:
-        env: production
-        ansible_user: ubuntu
-        ansible_password: "{{ansible_vault_password }}"
-        ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
-
-      hosts:
-        worker01:
-          ansible_host: 172.31.86.160
-          hostname: AnsibleWorker01
-          ansible_password: "{{ansible_vault_password }}"
-
-        worker02:
-          ansible_host: 172.31.95.133
-          hostname: AnsibleWorker02
-          ansible_password: "{{ansible_vault_password }}"
