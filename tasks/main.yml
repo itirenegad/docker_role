@@ -1,5 +1,5 @@
 ---
-# tasks file for docker-install-role
+# Tasks for docker installation in remotes hosts from Jinja2 scrit
 - name : "Install Docker from Jinja2 script"
   template:
     src: "docker_install.sh.j2"
@@ -8,39 +8,40 @@
 - name: "Execute Install Script"
   command: "sh /home/{{ ansible_user }}/docker_install.sh"
 
-- name: Install EPEL repo
+# Adding EPL repository for CentOs distribution
+- name: "Install EPEL repository"
   package: 
     name: "{{ item }}"
-    state: present
+    state: "present"
   when: ansible_distribution == "CentOS"
   loop:
-    - epel-release 
-
-- name: Download pip script
+    - "epel-release"
+ 
+ # Installation prerequietes before installing docker-py
+- name: "Download pip script"
   get_url:
-    url: https://bootstrap.pypa.io/pip/2.7/get-pip.py
-    dest: /tmp/get-pip.py
+    url: "https://bootstrap.pypa.io/pip/2.7/get-pip.py"
+    dest: "/tmp/get-pip.py"
   when: ansible_distribution == "CentOS"
 
-- name: Install python-pip
-  command: python2.7 /tmp/get-pip.py
+- name: "Install python-pip for CentOS"
+  command: "python2.7" "/tmp/get-pip.py"
   when: ansible_distribution == "CentOS"
-
-
-# Docker-py Installation
 
 - name : "Install python pip3 for Ubuntu"
   package:
-    name: python3-pip
+    name: "python3-pip"
     state: present
   when: ansible_distribution == "Ubuntu"
 
+# Installation docker-py using pip package modules
 - name: "Install docker-py via pip"
   pip:
     name: docker-py
     state: present
   when: ansible_distribution == "Ubuntu"
 
+# Start Docker service
 - name: Enable and start Docker
   service:
     name: docker
