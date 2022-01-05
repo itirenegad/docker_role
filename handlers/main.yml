@@ -1,10 +1,10 @@
 ---
 # Handlers file for docker-install-role
-- name: reload systemd
+- name: "reload systemd"
   systemd:
-    daemon_reload: yes
+    daemon_reload: "yes"
 
-- name: restart docker
+- name: "restart docker"
   systemd:
-    name: docker
-    state: restarted
+    name: "docker"
+    state: "restarted"

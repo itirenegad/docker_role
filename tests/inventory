@@ -6,6 +6,6 @@ all:
     ansible:
       hosts:
         localhost:
-          ansible_connection: local
-          ansible_user: ubuntu
-          hostname: AnsibleMaster
+          ansible_connection: "local"
+          ansible_user: "ubuntu"
+          hostname: "AnsibleMaster"

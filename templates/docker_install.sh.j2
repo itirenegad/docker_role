@@ -7,36 +7,39 @@
 	
 	{# Set repository #}
 	sudo apt-get update
-	sudo apt-get install \
+	sudo apt-get install tree
+	sudo apt-get \
 		ca-certificates \
 		curl \
 		gnupg \
 		lsb-release
-	 sudo rm /usr/share/keyrings/docker-archive-keyring.gpg
-	 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
-	 sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-	 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] \
-	 https://download.docker.com/linux/ubuntu \
+	sudo rm /usr/share/keyrings/docker-archive-keyring.gpg
+	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
+	sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+	echo "deb [arch=$(dpkg --print-architecture) \ 
+	signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] \
+	https://download.docker.com/linux/ubuntu \
   	$(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+	sudo apt-get install python3-pip
 	
 	{# Install Docker Engine #}
 	sudo apt-get update -y
 	sudo apt-get install -y docker-ce docker-ce-cli containerd.io
-	sudo usermod -aG docker 
-	echo ‘Docker Engine installation done!’
+	sudo usermod -aG docker {{ ansible_user}} #$USER
+	
+	echo "Docker Engine installation done!"
  
 {% elif ansible_distribution == "CentOS" %}
 	
 	{# Uninstall old versions #}
 	sudo yum remove docker \
-                  docker-client \
-                  docker-client-latest \
-                  docker-common \
-                  docker-latest \
-                  docker-latest-logrotate \
-                  docker-logrotate \
-                  docker-engine
-				{# Set repository #}
+                  	docker-client docker-client-latest \
+                  	docker-common docker-latest \
+                  	docker-latest-logrotate docker-logrotate \
+                  	docker-engine
+	
+	{# Set repository #}
+	sudo yum install -y epel-release
 	sudo yum install -y yum-utils
  	sudo yum-config-manager \
     	--add-repo https://download.docker.com/linux/centos/docker-ce.repo
@@ -46,13 +49,14 @@
 	sudo yum-config-manager --enable docker-ce-test
 	
 	{# Install Docker Engine #}
-	sudo yum -y install docker-ce docker-ce-cli containerd.io
-	sudo yum -y update
-	sudo usermod -aG docker {{ ansible_user }}
-	echo ‘Docker Engine installation done!’
+	sudo yum install -y docker-ce docker-ce-cli containerd.io
+	sudo yum update -y
+	sudo usermod -aG docker $USER #{{ ansible_user }}
+
+	echo "Docker Engine installation done!"
 	
 {% else %}
 
-	echo 'Distrution not taken over!'
+	echo "Distrution not taken over!"
 	
 {% endif %}
