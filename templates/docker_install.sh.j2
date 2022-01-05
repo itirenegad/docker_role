@@ -1,8 +1,11 @@
 #!/bin/bash
+
 {% if ansible_distribution == "Ubuntu" %}
-		{# Uninstall old versions #}
+
+	{# Uninstall old versions #}
 	sudo apt-get remove docker docker-engine docker.io containerd runc
-			{# Set repository #}
+	
+	{# Set repository #}
 	sudo apt-get update
 	sudo apt-get install \
 		ca-certificates \
@@ -15,14 +18,16 @@
 	 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] \
 	 https://download.docker.com/linux/ubuntu \
   	$(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-			{# Install Docker Engine #}
+	
+	{# Install Docker Engine #}
 	sudo apt-get update -y
 	sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 	sudo usermod -aG docker 
 	echo ‘Docker Engine installation done!’
  
 {% elif ansible_distribution == "CentOS" %}
-		{# Uninstall old versions #}
+	
+	{# Uninstall old versions #}
 	sudo yum remove docker \
                   docker-client \
                   docker-client-latest \
@@ -35,14 +40,19 @@
 	sudo yum install -y yum-utils
  	sudo yum-config-manager \
     	--add-repo https://download.docker.com/linux/centos/docker-ce.repo
-{# Enable the nightly and test the repository #}
+	
+	{# Enable the nightly and test the repository #}
 	sudo yum-config-manager --enable docker-ce-nightly
 	sudo yum-config-manager --enable docker-ce-test
-				{# Install Docker Engine #}
+	
+	{# Install Docker Engine #}
 	sudo yum -y install docker-ce docker-ce-cli containerd.io
 	sudo yum -y update
 	sudo usermod -aG docker {{ ansible_user }}
 	echo ‘Docker Engine installation done!’
+	
 {% else %}
+
 	echo 'Distrution not taken over!'
+	
 {% endif %}

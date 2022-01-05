@@ -1,17 +1,17 @@
 ---
-namespace: community
-name: docker-role
-version: 1.0.0
-readme: README.md
+namespace: "community"
+name: "docker_role"
+version: "1.0.0"
+readme: "README.md"
 authors:
-  - El Hadji Diawara
-description: Install docker
-license_file: COPYING
+  - "El Hadji Diawara"
+description: "Install docker"
+license_file: "COPYING"
 tags:
-  - v1
-repository: https://github.com/itirenegad/docker_role.git
-documentation: https://github.com/itirenegad/docker_role.git
-homepage: https://github.com/itirenegad/docker_role.git
-issues: https://github.com/itirenegad/docker_role.git
+  - "v1"
+repository: "https://github.com/itirenegad/docker_role.git"
+documentation: "https://github.com/itirenegad/docker_role.git"
+homepage: "https://github.com/itirenegad/docker_role.git"
+issues: "https://github.com/itirenegad/docker_role.git"
 build_ignore:
-  - .gitignore
+  - ".gitignore"
