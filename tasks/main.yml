@@ -8,43 +8,41 @@
 - name: "Execute Install Script"
   command: "sh /home/{{ ansible_user }}/docker_install.sh"
 
-- name: Install EPEL repo
+- name: "Install EPEL repo"
   package: 
     name: "{{ item }}"
-    state: present
-  when: ansible_distribution == "CentOS"
+    state: "present"
+  when: 'ansible_distribution == "CentOS"'
   loop:
-    - epel-release 
+    - "epel-release"
 
-- name: Download pip script
+- name: "Download pip script"
   get_url:
-    url: https://bootstrap.pypa.io/pip/2.7/get-pip.py
-    dest: /tmp/get-pip.py
-  when: ansible_distribution == "CentOS"
+    url: "https://bootstrap.pypa.io/pip/2.7/get-pip.py"
+    dest: "/tmp/get-pip.py"
+  when: 'ansible_distribution == "CentOS"'
 
-- name: Install python-pip
-  command: python2.7 /tmp/get-pip.py
-  when: ansible_distribution == "CentOS"
-
+- name: "Install python-pip"
+  command: "'python2.7' '/tmp/get-pip.py'"
+  when: 'ansible_distribution == "CentOS"'
 
 # Docker-py Installation
 
 - name : "Install python pip3 for Ubuntu"
   package:
-    name: python3-pip
-    state: present
-  when: ansible_distribution == "Ubuntu"
+    name: "python3-pip"
+    state: "present"
+  when: 'ansible_distribution == "Ubuntu"'
 
 - name: "Install docker-py via pip"
   pip:
-    name: docker-py
-    state: present
-  when: ansible_distribution == "Ubuntu"
+    name: "docker-py"
+    state: "present"
 
-- name: Enable and start Docker
+- name: "Enable and start Docker"
   service:
-    name: docker
-    enabled: yes
-    state: started
+    name: "docker"
+    enabled: "yes"
+    state: "started"
   tags:
-    - docker
+    - "docker"
