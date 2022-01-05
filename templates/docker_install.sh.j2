@@ -51,7 +51,7 @@
 	{# Install Docker Engine #}
 	sudo yum install -y docker-ce docker-ce-cli containerd.io
 	sudo yum update -y
-	sudo usermod -aG docker $USER #{{ ansible_user }}
+	sudo usermod -aG docker {{ ansible_user }} #$USER
 
 	echo "Docker Engine installation done!"
 	
